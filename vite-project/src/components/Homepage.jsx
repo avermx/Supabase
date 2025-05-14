@@ -2,6 +2,7 @@ import { useState } from "react";
 import { supabase } from "../supabase-client";
 
 const Homepage = () => {
+    
     const [newTask, setNewTask] = useState({ title: "", description: "" })
     const handleSubmit = async (e) => {
         e.preventDefault()
