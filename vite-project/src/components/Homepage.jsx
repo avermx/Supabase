@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { supabase } from "./supabase-client";
-
+import { supabase } from "../supabase-client";
 
 const Homepage = () => {
-   const [newTask, setNewTask] =  useState({ title: "" , description: ""})
-    const handleSubmit = async (e) =>{
+    const [newTask, setNewTask] = useState({ title: "", description: "" })
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        supabase
-        
+        const { error } = await supabase.from('Todo').insert(newTask).single()
+        if (error) {
+            console.error("here is error", error)
+        }
+
     }
 
     return (
@@ -18,8 +20,8 @@ const Homepage = () => {
                 </div>
                 <div className="h-[35%] w-[100%]  justify-center flex  justify-center items-center flex-col gap-5 ">
                     <form onSubmit={handleSubmit} action="" className="w-full h-full flex justify-center items-center flex-col gap-2 ">
-                        <input type="text" onChange={(e) => setNewTask((prev) =>({...prev, title: e.target.value}))} className="w-[60%]  border p-2 rounded-[4px]" placeholder="Task Title"/>
-                        <textarea onChange={(e) => setNewTask((prev) =>({...prev, description: e.target.value}))} name="" id="" className="border w-[60%] h-[20%] p-2 rounded-[4px]" placeholder="Task Description"></textarea>
+                        <input type="text" onChange={(e) => setNewTask((prev) => ({ ...prev, title: e.target.value }))} className="w-[60%]  border p-2 rounded-[4px]" placeholder="Task Title" />
+                        <textarea onChange={(e) => setNewTask((prev) => ({ ...prev, description: e.target.value }))} name="" id="" className="border w-[60%] h-[20%] p-2 rounded-[4px]" placeholder="Task Description"></textarea>
                         <button className="bg-white px-2 py-1 rounded-[4px] text-black">Add Task</button>
                     </form>
                 </div>
