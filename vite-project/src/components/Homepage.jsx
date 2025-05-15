@@ -20,7 +20,7 @@ const Homepage = () => {
     const deletehandle = async (e) => {
         const { error } = await supabase.from('Todo').delete().eq('id', e)
         if (error) {
-            console.log('le bsdk error le le ', error)
+            console.log('le bsdk error le le ', error )
 
         }
         fetchTask();
